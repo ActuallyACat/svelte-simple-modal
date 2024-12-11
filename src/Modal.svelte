@@ -34,9 +34,9 @@
 </script>
 
 <script>
-  import * as svelte from 'svelte';
-  import { fade } from 'svelte/transition';
-  import { createEventDispatcher } from 'svelte';
+  import * as svelte from "svelte";
+  import { fade } from "svelte/transition";
+  import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -49,8 +49,8 @@
     node.tabIndex >= 0 &&
     !node.hidden &&
     !node.disabled &&
-    node.style.display !== 'none' &&
-    node.type !== 'hidden' &&
+    node.style.display !== "none" &&
+    node.type !== "hidden" &&
     Boolean(
       node.offsetWidth || node.offsetHeight || node.getClientRects().length
     );
@@ -77,7 +77,7 @@
    * Svelte context key to reference the simple modal context
    * @type {string}
    */
-  export let key = 'simple-modal';
+  export let key = "simple-modal";
 
   /**
    * Accessibility label of the modal
@@ -265,15 +265,15 @@
   let outerClickTarget;
 
   const camelCaseToDash = (str) =>
-    str.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
+    str.replace(/([a-zA-Z])(?=[A-Z])/g, "$1-").toLowerCase();
 
   const toCssString = (props) =>
     props
       ? Object.keys(props).reduce(
           (str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`,
-          ''
+          ""
         )
-      : '';
+      : "";
 
   const isFunction = (f) => !!(f && f.constructor && f.call && f.apply);
 
@@ -319,13 +319,13 @@
        * The open event is fired right before the modal opens
        * @event {void} open
        */
-      dispatch('open');
+      dispatch("open");
       /**
        * The opening event is fired right before the modal opens
        * @event {void} opening
        * @deprecated Listen to the `open` event instead
        */
-      dispatch('opening'); // Deprecated. Do not use!
+      dispatch("opening"); // Deprecated. Do not use!
     };
     onClose = (event) => {
       if (callbacks.onClose) callbacks.onClose(event);
@@ -333,13 +333,13 @@
        * The close event is fired right before the modal closes
        * @event {void} close
        */
-      dispatch('close');
+      dispatch("close");
       /**
        * The closing event is fired right before the modal closes
        * @event {void} closing
        * @deprecated Listen to the `close` event instead
        */
-      dispatch('closing'); // Deprecated. Do not use!
+      dispatch("closing"); // Deprecated. Do not use!
     };
     onOpened = (event) => {
       if (callbacks.onOpened) callbacks.onOpened(event);
@@ -347,7 +347,7 @@
        * The opened event is fired after the modal's opening transition
        * @event {void} opened
        */
-      dispatch('opened');
+      dispatch("opened");
     };
     onClosed = (event) => {
       if (callbacks.onClosed) callbacks.onClosed(event);
@@ -355,7 +355,7 @@
        * The closed event is fired after the modal's closing transition
        * @event {void} closed
        */
-      dispatch('closed');
+      dispatch("closed");
     };
   };
 
@@ -374,14 +374,14 @@
   };
 
   const handleKeydown = (event) => {
-    if (state.closeOnEsc && Component && event.key === 'Escape') {
+    if (state.closeOnEsc && Component && event.key === "Escape") {
       event.preventDefault();
       close();
     }
 
-    if (Component && event.key === 'Tab' && !state.disableFocusTrap) {
+    if (Component && event.key === "Tab" && !state.disableFocusTrap) {
       // trap focus
-      const nodes = modalWindow.querySelectorAll('*');
+      const nodes = modalWindow.querySelectorAll("*");
       const tabbable = Array.from(nodes)
         .filter(state.isTabbable)
         .sort((a, b) => a.tabIndex - b.tabIndex);
@@ -417,21 +417,21 @@
     prevBodyPosition = document.body.style.position;
     prevBodyOverflow = document.body.style.overflow;
     prevBodyWidth = document.body.style.width;
-    document.body.style.position = 'fixed';
+    document.body.style.position = "fixed";
     document.body.style.top = `-${scrollY}px`;
-    document.body.style.overflow = 'hidden';
-    document.body.style.width = '100%';
+    document.body.style.overflow = "hidden";
+    document.body.style.width = "100%";
   };
 
   const enableScroll = () => {
-    document.body.style.position = prevBodyPosition || '';
-    document.body.style.top = '';
-    document.body.style.overflow = prevBodyOverflow || '';
-    document.body.style.width = prevBodyWidth || '';
+    document.body.style.position = prevBodyPosition || "";
+    document.body.style.top = "";
+    document.body.style.overflow = prevBodyOverflow || "";
+    document.body.style.width = prevBodyWidth || "";
     window.scrollTo({
       top: scrollY,
       left: 0,
-      behavior: 'instant',
+      behavior: "instant",
     });
   };
 
@@ -545,7 +545,7 @@
   }
 
   @supports (-webkit-touch-callout: none) {
-    body {
+    :global(body) {
       /* The hack for Safari iOS */
       height: -webkit-fill-available;
     }
@@ -598,7 +598,7 @@
 
   .close:before,
   .close:after {
-    content: '';
+    content: "";
     display: block;
     box-sizing: border-box;
     position: absolute;
