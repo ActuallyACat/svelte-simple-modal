@@ -1,4 +1,5 @@
 <script context="module">
+  import { mount } from "svelte";
   /**
    * @typedef {typeof import('svelte').SvelteComponent | typeof import('svelte').SvelteComponent<any>} Component
    * @typedef {import('svelte/types/runtime/transition').BlurParams} BlurParams
@@ -22,12 +23,13 @@
    */
   export function bind(Component, props = {}) {
     return function ModalComponent(options) {
-      return new Component({
+      return mount(Component, {
         ...options,
         props: {
           ...props,
           ...options.props,
         },
+        target: options.parentNode,
       });
     };
   }
